@@ -200,21 +200,51 @@ To investigate this, bar plot was made:
 The results show that apartments on lower floor class tend to be cheaper.
 
 ---
-## Prediction model
+## Prediction models
 
-The prediction model was created using the `sklearn` library.  
+The prediction models for Kyiv and other cities were created using the `sklearn` library.
+I decided to separate Kyiv from other cities as he is a common outlier (capital).
 
-- **Data preprocessing:** Categorical values (`True`/`False`) were converted to `1`/`0`, and additional columns were 
-added to indicate apartment regions.  
-- **Model selection:** `RandomForestRegressor` and `KNeighborsRegressor` were tested. The best results were obtained 
-with a `RandomForestRegressor` using 400 estimators.  
+### Kyiv
 
-**Performance:** The model achieved a coefficient of determination (R²) of 53.54%, indicating that features 
-such as number of rooms, total area, living area, kitchen area, floor, total number of floors, year of construction, 
-big city status, and region explain over 50% of the variation in apartment prices.
+For the Kyiv dataset, the models utilized features such as the 
+number of rooms, kitchen area, living area, floor, and year of 
+construction.
 
----
+**Model Performance Metrics**
+![img.png](images/img_30.png)
+The Random Forest model provided the best results, showing the lowest 
+average error and the highest R2 score. The Decision Tree 
+performed poorly, suggesting issues with overfitting or 
+insufficient data complexity for that specific algorithm.
 
+**Feature Importance**
+![img.png](images/img_31.png)
+According to the Random Forest model, the most influential factors for pricing in the capital are:
+
+1. Kitchen Area - ~32% impact (Indicating elite household).
+2. Year of Building - ~25% impact.
+3. Living Area - ~17% impact.
+
+### Other cities
+The regional analysis incorporated geographical context 
+(West, Center, East, North, South) and a binary feature 
+indicating whether the apartment is located in a major city.
+
+**Model Performance Metrics**
+![img.png](images/img_33.png)
+Predictions for the regions were significantly more accurate 
+than for Kyiv. The Random Forest model led again 
+with an R2 score of 0.53.
+
+**Feature Importance**
+![img.png](images/img_34.png)
+The top factors affecting price outside of Kyiv are:
+
+1. Year of Building — ~26% (probably because of better utilities in newer houses).
+2. West Region — ~23% (reflecting high demand or premium pricing in Western Ukraine).
+3. Kitchen Area — ~17%.
+4. Big City Status — ~12%.
 ## Conclusion
 
 - Older buildings are generally cheaper than newer ones.  
@@ -280,7 +310,7 @@ For full calculations and explanations, you can view the Excel file [here](https
 # Installation & Setup
 1. Clone this repository:
    ```bash
-   git clone https://github.com/YESosnovska/apartaments-prices-analysis.git
+   git clone https://github.com/YESosnovska/apartments-prices-analysis.git
    cd apartments-prices-analysis
    ```
 2. Create a virtual environment (optional but recommended):
